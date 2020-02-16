@@ -1,2 +1,2 @@
-# memory_pill
-An app to remember
+# flutter_hello_world
+Learning flutter!
