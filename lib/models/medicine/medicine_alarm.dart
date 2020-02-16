@@ -1,12 +1,20 @@
-class MedicineAlarm {
-  DateTime timeScheduled;
-  int medicineFrequency;
-  bool isEnabled;
+import 'package:memory_pill/models/medicine/medicine_model.dart';
 
-  MedicineAlarm(this.timeScheduled, this.medicineFrequency, this.isEnabled);
+class MedicineAlarm {
+  DateTime _timeScheduled;
+  bool _isEnabled;
+
+  String get timeScheduled => _timeScheduled.hour.toString() + ':' + _timeScheduled.minute.toString();
+
+
+  bool get isEnabled => _isEnabled;
+
+  MedicineAlarm(this._timeScheduled, this._isEnabled);
+
+
 
   @override
   String toString() {
-    return 'MedicineAlarm{timeScheduled: $timeScheduled, medicineFrequency: $medicineFrequency, isEnabled: $isEnabled}';
+    return 'MedicineAlarm{timeScheduled: $_timeScheduled, isEnabled: $_isEnabled}';
   }
 }

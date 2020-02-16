@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Roboto',
         iconTheme: IconThemeData(color: Colors.blue),
       ),
-      home: HomeScreen()
+      home: homeScreen()
     );
   }
 }
