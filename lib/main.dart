@@ -8,7 +8,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        fontFamily: 'Poppins',
+        fontFamily: 'Roboto',
         iconTheme: IconThemeData(color: Colors.blue),
       ),
       home: Scaffold(
@@ -24,7 +24,10 @@ class MyApp extends StatelessWidget {
                 ),
               ),
               Text('MemoryPill',
-                  style: TextStyle(fontSize: 22.00, color: Colors.grey)),
+                  style: TextStyle(
+                      fontSize: 22.00,
+                      color: Colors.grey,
+                      fontFamily: 'Poppins')),
             ],
           ),
           backgroundColor: Colors.white,
@@ -33,10 +36,10 @@ class MyApp extends StatelessWidget {
         body: ListView(
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.only(top: 20.0, left: 20.0),
+              padding: EdgeInsets.only(top: 20.0, left: 10.0),
               child: Text(
                 'O que deseja fazer hoje?',
-                style: TextStyle(fontSize: 28.00),
+                style: TextStyle(fontSize: 28.00, fontFamily: 'Poppins'),
               ),
             ),
             SizedBox(height: 30.0),
@@ -52,7 +55,7 @@ class MyApp extends StatelessWidget {
                         color: Colors.lightBlueAccent.withOpacity(0.25),
                         borderRadius: BorderRadius.circular(30.0)),
                     child: IconButton(
-                      icon: Icon(FontAwesomeIcons.capsules),
+                      icon: Icon(FontAwesomeIcons.notesMedical),
                       iconSize: 30,
                       onPressed: () {},
                     ),
@@ -81,7 +84,7 @@ class MyApp extends StatelessWidget {
                       color: Colors.grey.withOpacity(0.15),
                       borderRadius: BorderRadius.circular(30),
                     ),
-                    height: 70.0,
+                    height: 100.0,
                     child: Row(
                       children: <Widget>[
                         IconButton(
@@ -90,12 +93,14 @@ class MyApp extends StatelessWidget {
                           iconSize: 40.0,
                           onPressed: () {},
                         ),
-                        Expanded(
+                        Flexible(
                           child: ListTile(
-                            title: Text('Amoxicilina, 1 dose'),
+
+                            title: Text('Amoxicilina, 1 unid.', softWrap: false),
                             subtitle: Text('18:45  (8 em 8h)'),
                           ),
                         ),
+                        Text('Faltam 2 doses', style: TextStyle(fontWeight: FontWeight.bold)),
                         IconButton(
                           icon: Icon(Icons.delete,
                               size: 30.0, color: Colors.grey),
@@ -121,15 +126,11 @@ class MyApp extends StatelessWidget {
                         ),
                         Flexible(
                           child: ListTile(
-                            title: Text('Antiviral, 2 un.'),
+                            title: Text('Antiviral, 2 unid.'),
                             subtitle: Text('10:00'),
                           ),
                         ),
-                        Flexible(
-                          child: ListTile(
-                            title: Text('diario'),
-                          ),
-                        ),
+                        Text('Diario', style: TextStyle(fontWeight: FontWeight.bold)),
                         IconButton(
                           icon: Icon(Icons.delete,
                               size: 30.0, color: Colors.grey),
