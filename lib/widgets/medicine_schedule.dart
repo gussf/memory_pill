@@ -2,23 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:memory_pill/models/medicine/medicine_model.dart';
 
-Widget buildMedicineRemainingDosesInfo(Medicine medicine) {
-  return Expanded(
-    child: Chip(
-      label: Text(medicine.getMedicineDosageDescription(),
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0)),
-    ),
+Widget medicineRemainingDosesInfo(Medicine medicine) {
+  return Chip(
+    label: Text(medicine.getMedicineDosageDescription(),
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0)),
   );
 }
 
-Widget buildMedicineInfo(Medicine medicine) {
+Widget medicineDescription(Medicine medicine) {
   return ListTile(
     title: Text(medicine.getMedicineDescription()),
     subtitle: Text(medicine.getMedicineFrequencyDescription()),
   );
 }
 
-Widget buildMedicineSchedule(Medicine medicine) {
+Widget medicineSchedule(Medicine medicine) {
   print('Objeto recebido: ' + medicine.toString());
 
   return Container(
@@ -37,10 +35,10 @@ Widget buildMedicineSchedule(Medicine medicine) {
         ),
         Expanded(
           child: Container(
-            child: buildMedicineInfo(medicine),
+            child: medicineDescription(medicine),
           ),
         ),
-        buildMedicineRemainingDosesInfo(medicine),
+        Expanded(child: medicineRemainingDosesInfo(medicine)),
         Column(
           children: <Widget>[
             IconButton(

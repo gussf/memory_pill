@@ -76,9 +76,9 @@ class _ScheduledMedicinesState extends State<ScheduledMedicines> {
     return Container(
       child: Column(
         children: <Widget>[
-          buildMedicineSchedule(amox),
+          medicineSchedule(amox),
           SizedBox(height: 5),
-          buildMedicineSchedule(viral),
+          medicineSchedule(viral),
           SizedBox(height: 5),
         ],
       ),
