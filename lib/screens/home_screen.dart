@@ -26,16 +26,14 @@ class HomeScreen extends StatelessWidget {
           ),
           SizedBox(height: 30.0),
           Padding(
-            padding: EdgeInsets.only(left: 20.0, right: 20.0),
+            padding: EdgeInsets.only(left: 0.0, right: 0.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                menuButton(
-                  // Insert a new Medicine!
-                  Icon(FontAwesomeIcons.notesMedical),
-                  () => goToFormScreen(context, _formKey),
-                ),
+                menuButton(Icon(FontAwesomeIcons.notesMedical),
+                    () => goToFormScreen(context, _formKey)),
                 menuButton(Icon(FontAwesomeIcons.calendarAlt), null),
+                menuButton(Icon(FontAwesomeIcons.camera), null),
               ],
             ),
           ),
