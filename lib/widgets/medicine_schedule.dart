@@ -10,9 +10,18 @@ Widget medicineRemainingDosesInfo(Medicine medicine) {
 }
 
 Widget medicineDescription(Medicine medicine) {
-  return ListTile(
-    title: Text(medicine.getMedicineDescription()),
-    subtitle: Text(medicine.getMedicineFrequencyDescription()),
+  return Padding(
+    padding: EdgeInsets.only(top: 20.0),
+    child: ListTile(
+      title: Text(medicine.name, textAlign: TextAlign.left,),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(medicine.getMedicineDosage()),
+          Text(medicine.getMedicineFrequencyDescription())
+        ],
+      ),
+    ),
   );
 }
 

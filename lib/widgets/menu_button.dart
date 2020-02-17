@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 
-Widget buildActionButton(Icon iconParam) {
+Widget menuButton(Icon iconParam, VoidCallback onButtonPress) {
   return Container(
     height: 60.0,
     width: 60.0,
@@ -11,7 +11,9 @@ Widget buildActionButton(Icon iconParam) {
     child: IconButton(
       icon: iconParam,
       iconSize: 30,
-      onPressed: () {},
+      onPressed: () { onButtonPress();},
     ),
   );
 }
+
+

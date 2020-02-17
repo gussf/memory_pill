@@ -1,4 +1,4 @@
-import 'package:memory_pill/models/medicine/medicine_alarm.dart';
+import 'package:memory_pill/models/medicine/medicine_schedule.dart';
 import 'package:memory_pill/models/dosage/dosage.dart';
 
 class Medicine {
@@ -18,8 +18,8 @@ class Medicine {
 
   MedicineAlarm get medAlarm => _medicineAlarm;
 
-  String getMedicineDescription() {
-    return '${this.name}, ${this.dosageVal} unid.';
+  String getMedicineDosage() {
+    return this.dosageVal.toString() + ' unidade' + (dosageVal > 1 ? 's' : '');
   }
 
   String getMedicineFrequencyDescription() {
