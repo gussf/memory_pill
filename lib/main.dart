@@ -7,11 +7,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        fontFamily: 'Roboto',
-        iconTheme: IconThemeData(color: Colors.blue),
-      ),
-      home: HomeScreen()
-    );
+        theme: ThemeData(
+          fontFamily: 'Poppins',
+          iconTheme: IconThemeData(color: Colors.blue),
+        ),
+        home: HomeScreen());
   }
 }

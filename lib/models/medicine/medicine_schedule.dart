@@ -8,9 +8,7 @@ class MedicineAlarm {
 
   bool get isEnabled => _isEnabled;
 
-  MedicineAlarm(this._hourScheduled, this._minuteScheduled, this._isEnabled) {
-
-  }
+  MedicineAlarm(this._hourScheduled, this._minuteScheduled, this._isEnabled);
 
   @override
   String toString() {

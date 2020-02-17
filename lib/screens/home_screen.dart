@@ -13,6 +13,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: homeAppBar(),
       body: ListView(
@@ -25,17 +26,14 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           SizedBox(height: 30.0),
-          Padding(
-            padding: EdgeInsets.only(left: 0.0, right: 0.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                menuButton(Icon(FontAwesomeIcons.notesMedical),
-                    () => goToFormScreen(context, _formKey)),
-                menuButton(Icon(FontAwesomeIcons.calendarAlt), null),
-                menuButton(Icon(FontAwesomeIcons.camera), null),
-              ],
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              menuButton(Icon(FontAwesomeIcons.notesMedical),
+                  () => goToFormScreen(context, _formKey)),
+              menuButton(Icon(FontAwesomeIcons.calendarAlt), null),
+              menuButton(Icon(FontAwesomeIcons.camera), null),
+            ],
           ),
           SizedBox(height: 20.0),
           ScheduledMedicines(),
@@ -49,12 +47,7 @@ void goToFormScreen(BuildContext context, GlobalKey _formKey) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
-      return Dialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30.0),
-        ),
-        child: MedicineFormScreen(),
-      );
+      return MedicineFormScreen();
     },
   );
 }
