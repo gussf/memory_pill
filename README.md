@@ -1,2 +1,2 @@
-# flutter_hello_world
-Learning flutter!
+# MemoryPill
+An app to help remind people to take their meds!
