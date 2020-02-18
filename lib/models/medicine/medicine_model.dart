@@ -17,12 +17,14 @@ class Medicine {
 
   Medicine(this.name, this.dosage, this.medicineSchedule);
 
+  int get scheduledTimeInSeconds => medicineSchedule.timeSchedulesInSeconds;
 
   int get dosageVal => dosage.dosage;
 
   String get scheduledTime => medicineSchedule.timeScheduled;
 
   int get frequency => dosage.frequency;
+  int get frequencyInSeconds => dosage.frequency * 60 * 60;
 
   MedicineSchedule get medAlarm => medicineSchedule;
 

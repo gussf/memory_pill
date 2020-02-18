@@ -12,6 +12,8 @@ class MedicineSchedule {
 
   Map<String, dynamic> toJson() => _$MedicineScheduleToJson(this);
 
+  int get timeSchedulesInSeconds =>
+      (hourScheduled * 60 * 60) + (minuteScheduled * 60);
 
   String get timeScheduled =>
       hourScheduled.toString().padLeft(2, '0') + ':' + minuteScheduled.toString().padLeft(2, '0');
