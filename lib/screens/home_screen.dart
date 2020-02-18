@@ -61,7 +61,7 @@ class _ScheduledMedicinesState extends State<ScheduledMedicines> {
   @override
   Widget build(BuildContext context) {
     Medicine amox = Medicine(
-        'Amoxicilina', Dosage(1, 10, 9, false, 8), MedicineSchedule(18, 45, true));
+        'Aspirina', Dosage(1, 10, 30, false, 8), MedicineSchedule(18, 45, true));
     Medicine viral = Medicine(
         'Antiviral', Dosage(2, 8, 0, true, null), MedicineSchedule(13, 23, false));
 

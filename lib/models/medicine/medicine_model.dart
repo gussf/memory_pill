@@ -34,7 +34,7 @@ class Medicine {
   String getMedicineDosageDescription() {
     if (this._dosage.isDaily) return "Diario";
 
-    return 'Faltam ${this._dosage.remainingDoses} doses';
+    return '+ ${this._dosage.remainingDoses} doses';
   }
 
   @override

@@ -7,10 +7,10 @@ Widget medicineSchedule(Medicine medicine) {
 
   return Container(
     decoration: BoxDecoration(
-      color: Colors.grey.withOpacity(0.15),
+      color: Colors.indigo.withOpacity(0.05),
       borderRadius: BorderRadius.circular(30),
     ),
-    height: 100.0,
+    height: 120.0,
     child: Row(
       children: <Widget>[
         IconButton(
@@ -20,11 +20,11 @@ Widget medicineSchedule(Medicine medicine) {
           onPressed: () {},
         ),
         Expanded(
-          child: Container(
-            child: medicineDescription(medicine),
-          ),
+          child: medicineDescription(medicine),
         ),
-        Expanded(child: medicineRemainingDosesInfo(medicine)),
+        Expanded(
+          child: medicineRemainingDosesInfo(medicine),
+        ),
         Column(
           children: <Widget>[
             IconButton(
@@ -46,7 +46,9 @@ Widget medicineDescription(Medicine medicine) {
   return Padding(
     padding: EdgeInsets.only(top: 20.0),
     child: ListTile(
-      title: Text(medicine.name, textAlign: TextAlign.left,),
+      title: Text(medicine.name,
+          textAlign: TextAlign.left,
+          style: TextStyle(fontWeight: FontWeight.bold)),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -58,10 +60,11 @@ Widget medicineDescription(Medicine medicine) {
   );
 }
 
-
 Widget medicineRemainingDosesInfo(Medicine medicine) {
   return Chip(
     label: Text(medicine.getMedicineDosageDescription(),
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0)),
+        style: TextStyle(
+            fontSize: 14.0, color: Colors.white)),
+    backgroundColor: Colors.teal,
   );
 }
