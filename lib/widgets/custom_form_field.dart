@@ -32,7 +32,8 @@ Widget customTextFormField(TextInputType _textInputType, String _label,
         bool invalid = false;
 
         if (type == NUMBER_TYPE_INPUT) {
-          if (value.isEmpty || int.tryParse(value) == null || value == 0) {
+          if (enabledBool &&
+              (value.isEmpty || int.tryParse(value) == null || value == 0)) {
             invalid = true;
           }
         } else if (type == TEXT_TYPE_INPUT) {

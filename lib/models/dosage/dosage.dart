@@ -1,27 +1,32 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'dosage.g.dart';
+
+@JsonSerializable(explicitToJson: true)
 class Dosage {
-  int _dosage;
-  int _totalDoses;
+  int dosage;
+  int totalDoses;
   int _remainingDoses;
-  bool _isDaily;
-  int _frequency;
+  bool isDaily;
+  int frequency;
 
-  Dosage(this._dosage, this._totalDoses, this._remainingDoses, this._isDaily,
-      this._frequency);
 
-  int get totalDoses => _totalDoses;
+  factory Dosage.fromJson(Map<String, dynamic> json) => _$DosageFromJson(json);
 
-  int get dosage => _dosage;
+  Map<String, dynamic> toJson() => _$DosageToJson(this);
 
-  int get remainingDoses => _remainingDoses;
 
-  bool get isDaily => _isDaily;
-
-  int get frequency => _frequency;
-
-  @override
-  String toString() {
-    return 'Dosage{_dosage: $_dosage, _totalDoses: $_totalDoses, _remainingDoses: $_remainingDoses, _isDaily: $_isDaily, _frequency: $_frequency}';
+  Dosage(this.dosage, this.totalDoses, this.isDaily, this.frequency) {
+    this._remainingDoses = totalDoses;
   }
 
 
+  int get remainingDoses => _remainingDoses;
+
+
+
+  @override
+  String toString() {
+    return 'Dosage{_dosage: $dosage, _totalDoses: $totalDoses, _isDaily: $isDaily, _frequency: $frequency}';
+  }
 }

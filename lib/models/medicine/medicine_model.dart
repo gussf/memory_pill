@@ -1,22 +1,30 @@
 import 'package:memory_pill/models/medicine/medicine_schedule.dart';
 import 'package:memory_pill/models/dosage/dosage.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'medicine_model.g.dart';
+
+
+@JsonSerializable(explicitToJson: true)
 class Medicine {
-  String _name;
-  Dosage _dosage;
-  MedicineSchedule _medicineAlarm;
+  String name;
+  Dosage dosage;
+  MedicineSchedule medicineSchedule;
 
-  Medicine(this._name, this._dosage, this._medicineAlarm);
+  factory Medicine.fromJson(Map<String, dynamic> json) => _$MedicineFromJson(json);
 
-  String get name => _name;
+  Map<String, dynamic> toJson() => _$MedicineToJson(this);
 
-  int get dosageVal => _dosage.dosage;
+  Medicine(this.name, this.dosage, this.medicineSchedule);
 
-  String get scheduledTime => _medicineAlarm.timeScheduled;
 
-  int get frequency => _dosage.frequency;
+  int get dosageVal => dosage.dosage;
 
-  MedicineSchedule get medAlarm => _medicineAlarm;
+  String get scheduledTime => medicineSchedule.timeScheduled;
+
+  int get frequency => dosage.frequency;
+
+  MedicineSchedule get medAlarm => medicineSchedule;
 
   String getMedicineDosage() {
     return this.dosageVal.toString() + ' unidade' + (dosageVal > 1 ? 's' : '');
@@ -32,13 +40,13 @@ class Medicine {
   }
 
   String getMedicineDosageDescription() {
-    if (this._dosage.isDaily) return "Diario";
+    if (this.dosage.isDaily) return "Diario";
 
-    return '+ ${this._dosage.remainingDoses} doses';
+    return '+ ${this.dosage.remainingDoses} doses';
   }
 
   @override
   String toString() {
-    return 'Medicine{_name: $_name, _dosage: $_dosage, _medicineAlarm: $_medicineAlarm}';
+    return 'Medicine{_name: $name, _dosage: $dosage, _medicineAlarm: $medicineSchedule}';
   }
 }

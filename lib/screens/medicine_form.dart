@@ -2,6 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_pill/models/medicine/medicine_model.dart';
+import 'package:memory_pill/models/medicine/medicine_schedule.dart';
+import 'package:memory_pill/models/dosage/dosage.dart';
 import 'package:memory_pill/widgets/custom_form_field.dart';
 
 class MedicineFormScreen extends StatefulWidget {
@@ -18,6 +21,8 @@ class _MedicineFormScreenState extends State<MedicineFormScreen> {
   bool _isDaily = false;
 
   final _formKey = GlobalKey<FormState>();
+
+  Medicine newMedicine;
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +60,11 @@ class _MedicineFormScreenState extends State<MedicineFormScreen> {
       child: CupertinoTimerPicker(
         mode: CupertinoTimerPickerMode.hm,
         onTimerDurationChanged: (data) {
+          // Avoiding null value on hour
+          if (data.inMinutes < 60) {
+            chosenMinutes = data.inMinutes;
+            chosenHour = 0;
+          }
           chosenMinutes = (data.inMinutes % 60);
           chosenHour = (data.inMinutes ~/ 60);
         },
@@ -164,46 +174,58 @@ class _MedicineFormScreenState extends State<MedicineFormScreen> {
           ],
         ));
   }
-}
 
-Widget _showSubmitButtons(_formKey) {
-  return Container(
-    padding: EdgeInsets.only(left: 30.0, right: 30.0),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        RaisedButton(
-          child: Text(
-            "Cancelar",
-            style: TextStyle(color: Colors.white),
-          ),
-          color: Colors.red,
-          shape: RoundedRectangleBorder(
-              borderRadius: new BorderRadius.circular(18.0)),
-          onPressed: () {},
-        ),
-        ButtonTheme(
-          height: 50.0,
-          minWidth: 130.0,
-          child: RaisedButton(
+  Widget _showSubmitButtons(_formKey) {
+    return Container(
+      padding: EdgeInsets.only(left: 30.0, right: 30.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          RaisedButton(
             child: Text(
-              "Criar ",
+              "Cancelar",
               style: TextStyle(color: Colors.white),
             ),
-            color: Colors.blue,
+            color: Colors.red,
             shape: RoundedRectangleBorder(
                 borderRadius: new BorderRadius.circular(18.0)),
-            onPressed: () {
-              if (_formKey.currentState.validate()) {
-                print("Ok");
-
-              }
-            },
+            onPressed: () {},
           ),
-        )
-      ],
-    ),
-  );
+          ButtonTheme(
+            height: 50.0,
+            minWidth: 130.0,
+            child: RaisedButton(
+              child: Text(
+                "Criar ",
+                style: TextStyle(color: Colors.white),
+              ),
+              color: Colors.blue,
+              shape: RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(18.0)),
+              onPressed: () {
+                if (_formKey.currentState.validate()) {
+                  print("Ok");
+
+                  newMedicine = new Medicine(
+                      _medicineNameController.text,
+                      new Dosage(
+                          int.parse(_medicineDosageController.text),
+                          int.parse(_medicineTotalDosesController.text),
+                          _isDaily,
+                          (_isDaily
+                              ? null
+                              : int.parse(_medicineFrequencyController.text))),
+                      MedicineSchedule(chosenHour, chosenMinutes, true));
+
+                  print(newMedicine);
+                }
+              },
+            ),
+          )
+        ],
+      ),
+    );
+  }
 }
 
 class FormHeader extends StatelessWidget {

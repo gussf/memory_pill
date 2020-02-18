@@ -1,17 +1,25 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'medicine_schedule.g.dart';
+
+@JsonSerializable(explicitToJson: true)
 class MedicineSchedule {
-  int _hourScheduled;
-  int _minuteScheduled;
-  bool _isEnabled;
+  int hourScheduled;
+  int minuteScheduled;
+  bool isEnabled;
+
+  factory MedicineSchedule.fromJson(Map<String, dynamic> json) => _$MedicineScheduleFromJson(json);
+
+  Map<String, dynamic> toJson() => _$MedicineScheduleToJson(this);
+
 
   String get timeScheduled =>
-      _hourScheduled.toString().padLeft(2, '0') + ':' + _minuteScheduled.toString().padLeft(2, '0');
+      hourScheduled.toString().padLeft(2, '0') + ':' + minuteScheduled.toString().padLeft(2, '0');
 
-  bool get isEnabled => _isEnabled;
-
-  MedicineSchedule(this._hourScheduled, this._minuteScheduled, this._isEnabled);
+  MedicineSchedule(this.hourScheduled, this.minuteScheduled, this.isEnabled);
 
   @override
   String toString() {
-    return 'MedicineAlarm{_hourScheduled: $_hourScheduled, _minuteScheduled: $_minuteScheduled, _isEnabled: $_isEnabled}';
+    return 'MedicineAlarm{_hourScheduled: $hourScheduled, _minuteScheduled: $minuteScheduled, _isEnabled: $isEnabled}';
   }
 }
