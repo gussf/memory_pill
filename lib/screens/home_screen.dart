@@ -9,7 +9,6 @@ import 'package:memory_pill/screens/medicine_form.dart';
 import 'package:memory_pill/screens/app_bar.dart';
 
 class HomeScreen extends StatelessWidget {
-  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +29,7 @@ class HomeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               customMenuButton(Icon(Icons.add_alert),
-                  () => goToFormScreen(context, _formKey)),
+                  () => goToFormScreen(context)),
             ],
           ),
           SizedBox(height: 20.0),
@@ -41,7 +40,7 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-void goToFormScreen(BuildContext context, GlobalKey _formKey) {
+void goToFormScreen(BuildContext context) {
   showDialog(
     context: context,
     builder: (BuildContext context) {

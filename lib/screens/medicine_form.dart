@@ -17,59 +17,33 @@ class _MedicineFormScreenState extends State<MedicineFormScreen> {
   int chosenHour, chosenMinutes = 0;
   bool _isDaily = false;
 
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
       child: SingleChildScrollView(
-        child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              FormHeader(),
-              _displayTimePicker(),
-              _showNameInput(),
-              SizedBox(height: 10.0),
-              _showFrequencyInput(),
-              SizedBox(height: 10.0),
-              _showDosageInfoInput(),
-              SizedBox(height: 20.0),
-              Container(
-                padding: EdgeInsets.only(left: 30.0, right: 30.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    RaisedButton(
-                      child: Text(
-                        "Cancelar",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      color: Colors.red,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(18.0)),
-                      onPressed: () {},
-                    ),
-                    ButtonTheme(
-                      height: 50.0,
-                      minWidth: 130.0,
-                      child: RaisedButton(
-                        child: Text(
-                          "Criar ",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        color: Colors.blue,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(18.0)),
-                        onPressed: () {},
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 20.0,
-              )
-            ]),
+        child: Form(
+          key: _formKey,
+          child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                FormHeader(),
+                _displayTimePicker(),
+                _showNameInput(),
+                SizedBox(height: 10.0),
+                _showFrequencyInput(),
+                SizedBox(height: 10.0),
+                _showDosageInfoInput(),
+                SizedBox(height: 20.0),
+                _showSubmitButtons(_formKey),
+                SizedBox(
+                  height: 20.0,
+                )
+              ]),
+        ),
       ),
     );
   }
@@ -190,6 +164,46 @@ class _MedicineFormScreenState extends State<MedicineFormScreen> {
           ],
         ));
   }
+}
+
+Widget _showSubmitButtons(_formKey) {
+  return Container(
+    padding: EdgeInsets.only(left: 30.0, right: 30.0),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        RaisedButton(
+          child: Text(
+            "Cancelar",
+            style: TextStyle(color: Colors.white),
+          ),
+          color: Colors.red,
+          shape: RoundedRectangleBorder(
+              borderRadius: new BorderRadius.circular(18.0)),
+          onPressed: () {},
+        ),
+        ButtonTheme(
+          height: 50.0,
+          minWidth: 130.0,
+          child: RaisedButton(
+            child: Text(
+              "Criar ",
+              style: TextStyle(color: Colors.white),
+            ),
+            color: Colors.blue,
+            shape: RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(18.0)),
+            onPressed: () {
+              if (_formKey.currentState.validate()) {
+                print("Ok");
+
+              }
+            },
+          ),
+        )
+      ],
+    ),
+  );
 }
 
 class FormHeader extends StatelessWidget {

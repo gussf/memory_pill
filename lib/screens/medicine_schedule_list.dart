@@ -26,6 +26,7 @@ Widget medicineSchedule(Medicine medicine) {
           child: medicineRemainingDosesInfo(medicine),
         ),
         Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             IconButton(
               icon: Icon(Icons.edit, size: 30.0, color: Colors.grey),
