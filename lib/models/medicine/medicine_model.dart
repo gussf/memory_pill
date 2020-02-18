@@ -4,7 +4,7 @@ import 'package:memory_pill/models/dosage/dosage.dart';
 class Medicine {
   String _name;
   Dosage _dosage;
-  MedicineAlarm _medicineAlarm;
+  MedicineSchedule _medicineAlarm;
 
   Medicine(this._name, this._dosage, this._medicineAlarm);
 
@@ -16,7 +16,7 @@ class Medicine {
 
   int get frequency => _dosage.frequency;
 
-  MedicineAlarm get medAlarm => _medicineAlarm;
+  MedicineSchedule get medAlarm => _medicineAlarm;
 
   String getMedicineDosage() {
     return this.dosageVal.toString() + ' unidade' + (dosageVal > 1 ? 's' : '');

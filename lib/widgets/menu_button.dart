@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 
-Widget menuButton(Icon iconParam, VoidCallback onButtonPress) {
+Widget customMenuButton(Icon iconParam, VoidCallback onButtonPress) {
   return Padding(
     padding: const EdgeInsets.only(left: 5.0, right: 5.0),
     child: Container(

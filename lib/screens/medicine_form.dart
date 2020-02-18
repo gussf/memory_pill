@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_pill/widgets/custom_form_field.dart';
 
 class MedicineFormScreen extends StatefulWidget {
   @override
@@ -7,88 +10,181 @@ class MedicineFormScreen extends StatefulWidget {
 }
 
 class _MedicineFormScreenState extends State<MedicineFormScreen> {
+  TextEditingController _medicineNameController = TextEditingController();
+  TextEditingController _medicineFrequencyController = TextEditingController();
+  TextEditingController _medicineDosageController = TextEditingController();
+  TextEditingController _medicineTotalDosesController = TextEditingController();
+  int chosenHour, chosenMinutes = 0;
+  bool _isDaily = false;
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+      child: SingleChildScrollView(
+        child: Column(
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Text(
-                  'Novo lembrete',
-                  style: TextStyle(
-                    fontSize: 28.0,
-                    fontFamily: 'Poppins',
-                    color: Colors.blueAccent,
-                  ),
-                ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.only(left: 30.0, right: 0.0, bottom: 20.0),
-                child: CupertinoTimerPicker(
-                  mode: CupertinoTimerPickerMode.hm,
-                  onTimerDurationChanged: (data) {},
-                ),
-              ),
-              MedicineNameInput(),
+              FormHeader(),
+              _displayTimePicker(),
+              _showNameInput(),
               SizedBox(height: 10.0),
-              FrequencyOptionsInput(),
+              _showFrequencyInput(),
               SizedBox(height: 10.0),
-              DosageInfoInput(),
+              _showDosageInfoInput(),
               SizedBox(height: 20.0),
-              RaisedButton(
-                child: Text("Submit"),
-                onPressed: () {
-                  //if (_formKey.currentState.validate()) {
-                  //  _formKey.currentState.save();
-                  //}
-                },
+              Container(
+                padding: EdgeInsets.only(left: 30.0, right: 30.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    RaisedButton(
+                      child: Text(
+                        "Cancelar",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      color: Colors.red,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(18.0)),
+                      onPressed: () {},
+                    ),
+                    ButtonTheme(
+                      height: 50.0,
+                      minWidth: 130.0,
+                      child: RaisedButton(
+                        child: Text(
+                          "Criar ",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        color: Colors.blue,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(18.0)),
+                        onPressed: () {},
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 20.0,
               )
-            ],
-          ),
-        ));
+            ]),
+      ),
+    );
   }
-}
 
-class DosageInfoInput extends StatefulWidget {
-  @override
-  _DosageInfoInputState createState() => _DosageInfoInputState();
-}
+  // Displays and allows user to choose the time he wishes to schedule his medicine to
+  Widget _displayTimePicker() {
+    return Container(
+      padding: const EdgeInsets.only(left: 30.0, right: 0.0, bottom: 20.0),
+      child: CupertinoTimerPicker(
+        mode: CupertinoTimerPickerMode.hm,
+        onTimerDurationChanged: (data) {
+          chosenMinutes = (data.inMinutes % 60);
+          chosenHour = (data.inMinutes ~/ 60);
+        },
+      ),
+    );
+  }
 
-class _DosageInfoInputState extends State<DosageInfoInput> {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
+  // Displays a text form field for the medicine's name
+  Widget _showNameInput() {
+    return Container(
+      padding: EdgeInsets.only(left: 30.0, right: 30.0),
+      child: customTextFormField(
+        TextInputType.text,
+        'Nome do Remédio',
+        'ex: Aspirina',
+        _medicineNameController,
+        true,
+      ),
+    );
+  }
+
+  // Displays a row with fields for the medicine's frequency (
+  //      frequency (ex: 1 per 3 hours
+  //        or
+  //      daily
+  Widget _showFrequencyInput() {
+    // If a medicine is of daily intake, the frequency text field should be disabled
+    bool isFrequencyDisabled = (!_isDaily);
+
+    return Container(
+      padding: const EdgeInsets.only(left: 30.0, right: 30.0),
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: customTextFormField(
+                TextInputType.number,
+                'Frequência',
+                'ex: 3 em 3h',
+                _medicineFrequencyController,
+                isFrequencyDisabled),
+          ),
+          _createIsDailyCheckBox(),
+        ],
+      ),
+    );
+  }
+
+  Widget _createIsDailyCheckBox() {
+    return Row(
+      children: <Widget>[
+        Checkbox(
+          onChanged: _isDailyChanged,
+          value: _isDaily,
+        ),
+        Text(
+          "Diariamente",
+          style: TextStyle(
+              fontFamily: 'Poppins',
+              fontSize: 12.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.indigo),
+        ),
+      ],
+    );
+  }
+
+  void _isDailyChanged(bool newValue) => setState(
+        () {
+          _isDaily = newValue;
+
+          if (_isDaily)
+            _medicineFrequencyController.text = 'Diário';
+          else
+            _medicineFrequencyController.text = '';
+        },
+      );
+
+  // Displays a row with fields for the medicine's dosage
+  //    total doses (ex: must take 10 pills in a period)
+  //    dosage      (ex: must take 1 pill per day)
+  Widget _showDosageInfoInput() {
+    return Container(
         padding: const EdgeInsets.only(left: 30.0, right: 30.0),
         child: Row(
           children: <Widget>[
             Expanded(
-              child: TextFormField(
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  alignLabelWithHint: true,
-                  labelText: 'Dosagem',
-                  hintText: 'ex: 1 unid.',
-                ),
+              child: customTextFormField(
+                TextInputType.number,
+                'Dosagem',
+                'ex: 1 unid.',
+                _medicineDosageController,
+                true,
               ),
             ),
             SizedBox(
-              width: 30.0,
+              width: 5.0,
             ),
             Expanded(
-              child: TextFormField(
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  alignLabelWithHint: true,
-                  labelText: 'Doses totais',
-                  hintText: 'ex: 12 doses',
-                ),
+              child: customTextFormField(
+                TextInputType.number,
+                'Doses totais',
+                'ex: 12 doses.',
+                _medicineTotalDosesController,
+                true,
               ),
             ),
           ],
@@ -96,71 +192,18 @@ class _DosageInfoInputState extends State<DosageInfoInput> {
   }
 }
 
-class MedicineNameInput extends StatefulWidget {
-  @override
-  _MedicineNameInputState createState() => _MedicineNameInputState();
-}
-
-class _MedicineNameInputState extends State<MedicineNameInput> {
+class FormHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 30.0, right: 30.0),
-      child: TextFormField(
-        decoration: const InputDecoration(
-          alignLabelWithHint: true,
-          labelText: 'Nome do Remédio',
-          hintText: 'ex: Aspirina',
+    return Container(
+      padding: const EdgeInsets.all(20.0),
+      child: Text(
+        'Novo lembrete',
+        style: TextStyle(
+          fontSize: 28.0,
+          fontFamily: 'Poppins',
+          color: Colors.blueAccent,
         ),
-      ),
-    );
-  }
-}
-
-class FrequencyOptionsInput extends StatefulWidget {
-  @override
-  _FrequencyOptionsInputState createState() => _FrequencyOptionsInputState();
-}
-
-class _FrequencyOptionsInputState extends State<FrequencyOptionsInput> {
-  bool _isDaily = false;
-
-  final TextEditingController frequencyValueController =
-      new TextEditingController();
-
-  void _isDailyChanged(bool newValue) => setState(() {
-        _isDaily = newValue;
-
-        if (_isDaily) frequencyValueController.clear();
-      });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 30.0, right: 30.0),
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            child: TextFormField(
-              controller: frequencyValueController,
-              enabled: !_isDaily,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                alignLabelWithHint: true,
-                labelText: 'Frequência',
-                hintText: 'ex: de 3 em 3h',
-              ),
-            ),
-          ),
-          Checkbox(
-            onChanged: _isDailyChanged,
-            value: _isDaily,
-          ),
-          Text(
-            "Diariamente",
-            style: TextStyle(fontFamily: 'Poppins', fontSize: 15.0),
-          )
-        ],
       ),
     );
   }

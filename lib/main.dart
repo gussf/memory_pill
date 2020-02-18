@@ -10,6 +10,9 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           fontFamily: 'Poppins',
           iconTheme: IconThemeData(color: Colors.blue),
+          hintColor: Colors.indigo,
+          primaryColor: Colors.indigo,
+
         ),
         home: HomeScreen());
   }
