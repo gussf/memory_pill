@@ -2,21 +2,43 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:convert';
 
+import 'package:memory_pill/models/medicine/medicine_model.dart';
 import 'package:path_provider/path_provider.dart';
 
 class Storage{
-  Future<String> get _localPath async {
+
+  static List<Medicine> _schedulesMedicines = [];
+
+
+  static List<Medicine> get schedulesMedicines => List.unmodifiable(_schedulesMedicines);
+
+  static void addScheduledMedicine(Medicine med) {
+    _schedulesMedicines.add(med);
+  }
+
+  static void removeScheduledMedicine(Medicine med) {
+    _schedulesMedicines.remove(med);
+    print('_schedulesMedicines after removal: ' + _schedulesMedicines.toString());
+  }
+
+  static void removeScheduledMedicineAt(int index) {
+    _schedulesMedicines.removeAt(index);
+    print('_schedulesMedicines after removal: ' + _schedulesMedicines.toString());
+
+  }
+
+  static Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
 
     return directory.path;
   }
 
-  Future<File> get _getFile async {
+  static Future<File> get _getFile async {
     final path = await _localPath;
     return File('$path/memory_pill_schedule.json');
   }
 
-  Future<String> read() async {
+  static Future<String> read() async {
     try {
       final file = await _getFile;
 
@@ -27,9 +49,9 @@ class Storage{
     }
   }
 
-  Future<File> save(List list) async {
-    String data = json.encode(list);
-    print(data);
+  static Future<File> save() async {
+    String data = json.encode(_schedulesMedicines);
+    //print(data);
     final file = await _getFile;
     return file.writeAsString(data);
   }

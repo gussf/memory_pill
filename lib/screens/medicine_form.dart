@@ -6,6 +6,7 @@ import 'package:memory_pill/models/medicine/medicine_model.dart';
 import 'package:memory_pill/models/medicine/medicine_schedule.dart';
 import 'package:memory_pill/models/dosage/dosage.dart';
 import 'package:memory_pill/widgets/custom_form_field.dart';
+import 'package:memory_pill/widgets/storage.dart';
 
 class MedicineFormScreen extends StatefulWidget {
   @override
@@ -204,8 +205,6 @@ class _MedicineFormScreenState extends State<MedicineFormScreen> {
                   borderRadius: new BorderRadius.circular(18.0)),
               onPressed: () {
                 if (_formKey.currentState.validate()) {
-                  print("Ok");
-
                   newMedicine = new Medicine(
                       _medicineNameController.text,
                       new Dosage(
@@ -217,7 +216,11 @@ class _MedicineFormScreenState extends State<MedicineFormScreen> {
                               : int.parse(_medicineFrequencyController.text))),
                       MedicineSchedule(chosenHour, chosenMinutes, true));
 
-                  print(newMedicine);
+                  setState(() {
+                    Storage.addScheduledMedicine(newMedicine);
+                    Storage.save();
+                    print(newMedicine);
+                  });
                 }
               },
             ),
