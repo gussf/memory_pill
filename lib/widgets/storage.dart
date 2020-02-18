@@ -5,12 +5,13 @@ import 'dart:convert';
 import 'package:memory_pill/models/medicine/medicine_model.dart';
 import 'package:path_provider/path_provider.dart';
 
-class Storage{
+class Storage {
 
   static List<Medicine> _schedulesMedicines = [];
 
 
-  static List<Medicine> get schedulesMedicines => List.unmodifiable(_schedulesMedicines);
+  static List<Medicine> get schedulesMedicines =>
+      List.unmodifiable(_schedulesMedicines);
 
   static void addScheduledMedicine(Medicine med) {
     _schedulesMedicines.add(med);
@@ -18,13 +19,14 @@ class Storage{
 
   static void removeScheduledMedicine(Medicine med) {
     _schedulesMedicines.remove(med);
-    print('_schedulesMedicines after removal: ' + _schedulesMedicines.toString());
+    print(
+        '_schedulesMedicines after removal: ' + _schedulesMedicines.toString());
   }
 
   static void removeScheduledMedicineAt(int index) {
     _schedulesMedicines.removeAt(index);
-    print('_schedulesMedicines after removal: ' + _schedulesMedicines.toString());
-
+    print(
+        '_schedulesMedicines after removal: ' + _schedulesMedicines.toString());
   }
 
   static Future<String> get _localPath async {
@@ -50,9 +52,21 @@ class Storage{
   }
 
   static Future<File> save() async {
+    print('save: length: ' + _schedulesMedicines.length.toString());
     String data = json.encode(_schedulesMedicines);
+    final file = await _getFile;
+    return file.writeAsString(data);
+  }
+
+  static void resetList() async {
+    _schedulesMedicines = [];
+  }
+
+  static Future<File> resetFile() async {
+    String data = '';
     //print(data);
     final file = await _getFile;
     return file.writeAsString(data);
   }
+
 }

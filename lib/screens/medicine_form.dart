@@ -190,7 +190,9 @@ class _MedicineFormScreenState extends State<MedicineFormScreen> {
             color: Colors.red,
             shape: RoundedRectangleBorder(
                 borderRadius: new BorderRadius.circular(18.0)),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(context);
+            },
           ),
           ButtonTheme(
             height: 50.0,
@@ -220,6 +222,7 @@ class _MedicineFormScreenState extends State<MedicineFormScreen> {
                     Storage.addScheduledMedicine(newMedicine);
                     Storage.save();
                     print(newMedicine);
+                    Navigator.pop(context);
                   });
                 }
               },

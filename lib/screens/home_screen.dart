@@ -3,20 +3,24 @@ import 'package:memory_pill/screens/app_bar.dart';
 import 'package:memory_pill/screens/medicine_form.dart';
 import 'package:memory_pill/screens/medicine_schedule_list.dart';
 import 'package:memory_pill/widgets/menu_button.dart';
+import 'package:memory_pill/widgets/storage.dart';
 
 class HomeScreen extends StatefulWidget {
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: homeAppBar(),
-      body: ListView(
+      body: Column(
         children: <Widget>[
-          Padding(
+          Container(
             padding: EdgeInsets.only(top: 20.0, left: 10.0),
             child: Text(
               'O que deseja fazer hoje?',
@@ -32,19 +36,21 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
           SizedBox(height: 20.0),
-          ScheduledMedicines(),
+          Expanded(child: ScheduledMedicines()),
         ],
       ),
     );
   }
-}
 
-void goToFormScreen(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return MedicineFormScreen();
-    },
-  );
+  void goToFormScreen(BuildContext context) async {
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return MedicineFormScreen();
+      },
+    ).then((onValue) {
+      setState(() {
+      });
+    });
+  }
 }
-

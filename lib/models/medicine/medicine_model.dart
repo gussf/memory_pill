@@ -31,9 +31,9 @@ class Medicine {
   }
 
   String getMedicineFrequencyDescription() {
-    String frequencyDescription = this.scheduledTime;
+    String frequencyDescription = '';
     if (this.frequency != null) {
-      frequencyDescription += '  (${this.frequency} em ${this.frequency}h)';
+      frequencyDescription += '${this.frequency} em ${this.frequency}h';
     }
 
     return frequencyDescription;

@@ -16,12 +16,18 @@ class _ScheduledMedicinesState extends State<ScheduledMedicines> {
   void initState() {
     super.initState();
     Storage.read().then((data) {
+      Storage.resetList();
       setState(() {
-        var userMap = jsonDecode(data);
-        for (var medicineScheduleJson in userMap) {
-          var med = Medicine.fromJson(medicineScheduleJson);
-          Storage.addScheduledMedicine(med);
-          Storage.save();
+        try {
+          var userMap = jsonDecode(data);
+          for (var medicineScheduleJson in userMap) {
+            var med = Medicine.fromJson(medicineScheduleJson);
+            Storage.addScheduledMedicine(med);
+          }
+        } catch (e) {
+          print('Error with JSON: ' + e.toString());
+          print('Erasing corrupted json file');
+          Storage.resetFile();
         }
       });
     });
@@ -29,25 +35,17 @@ class _ScheduledMedicinesState extends State<ScheduledMedicines> {
 
   @override
   Widget build(BuildContext context) {
-    print('Build called');
-//    Medicine amox = Medicine(
-//        'Aspirina', Dosage(1, 10, false, 8), MedicineSchedule(18, 45, true));
-//    Medicine viral = Medicine(
-//        'Antiviral', Dosage(2, 8, true, null), MedicineSchedule(13, 23, false));
-//    Medicine antialergico = Medicine(
-//        'Antialergico', Dosage(2, 8, true, null), MedicineSchedule(13, 23, false));
-
-    return Container(
-        child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: Storage.schedulesMedicines.length,
-            itemBuilder: buildMedicineSchedule));
+    return Scrollbar(
+      child: ListView.builder(
+          itemCount: Storage.schedulesMedicines.length,
+          itemBuilder: buildMedicineSchedule),
+    );
   }
 
   Widget buildMedicineSchedule(context, index) {
     var currentMed = Storage.schedulesMedicines.elementAt(index);
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0, left: 5, right: 5),
+      padding: const EdgeInsets.only(left: 15.0, right: 15.0, bottom: 15.0),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.indigo.withOpacity(0.15),
@@ -103,8 +101,10 @@ Widget medicineDescription(Medicine medicine) {
           style: TextStyle(fontWeight: FontWeight.bold)),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Text(medicine.getMedicineDosage()),
+          Text(medicine.scheduledTime),
           Text(medicine.getMedicineFrequencyDescription())
         ],
       ),

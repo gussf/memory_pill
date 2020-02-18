@@ -16,7 +16,13 @@ class MedicineSchedule {
   String get timeScheduled =>
       hourScheduled.toString().padLeft(2, '0') + ':' + minuteScheduled.toString().padLeft(2, '0');
 
-  MedicineSchedule(this.hourScheduled, this.minuteScheduled, this.isEnabled);
+  MedicineSchedule(this.hourScheduled, this.minuteScheduled, this.isEnabled) {
+    if (hourScheduled == null)
+      hourScheduled = 0;
+
+    if (minuteScheduled == null)
+      minuteScheduled = 0;
+  }
 
   @override
   String toString() {
