@@ -1,2 +1,2 @@
 # MemoryPill
-An app to help remind people to take their meds!
+My first app, to help remind people to take their meds
