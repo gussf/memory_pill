@@ -15,6 +15,8 @@ class _ScheduledMedicinesState extends State<ScheduledMedicines> {
   @override
   void initState() {
     super.initState();
+
+    Storage.newestMedicine = null;
     Storage.read().then((data) {
       Storage.resetList();
       setState(() {
@@ -72,7 +74,7 @@ class _ScheduledMedicinesState extends State<ScheduledMedicines> {
               child: medicineRemainingDosesInfo(currentMed),
             ),
             Flexible(
-              flex:1,
+              flex: 1,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -87,6 +89,7 @@ class _ScheduledMedicinesState extends State<ScheduledMedicines> {
                         print('Removendo ' +
                             Storage.schedulesMedicines[index].toString());
                         Storage.removeScheduledMedicineAt(index);
+                        Storage.save();
                       });
                     },
                   )

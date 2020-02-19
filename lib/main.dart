@@ -1,19 +1,10 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:memory_pill/screens/home_screen.dart';
 
-
-import 'dart:async';
-
-import 'package:android_alarm_manager/android_alarm_manager.dart';
-import 'package:flutter/widgets.dart';
-
-void main() async {
+void main(){
 
   WidgetsFlutterBinding.ensureInitialized();
-  await AndroidAlarmManager.initialize();
-
   runApp(MyApp());
 }
 

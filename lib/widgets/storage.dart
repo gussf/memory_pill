@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'dart:io';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:memory_pill/models/medicine/medicine_model.dart';
 import 'package:path_provider/path_provider.dart';
@@ -9,12 +9,14 @@ class Storage {
 
   static List<Medicine> _schedulesMedicines = [];
 
+  static Medicine newestMedicine;
 
   static List<Medicine> get schedulesMedicines =>
       List.unmodifiable(_schedulesMedicines);
 
   static void addScheduledMedicine(Medicine med) {
     _schedulesMedicines.add(med);
+    newestMedicine = med;
   }
 
   static void removeScheduledMedicine(Medicine med) {

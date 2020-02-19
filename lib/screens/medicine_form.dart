@@ -2,9 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_pill/models/dosage/dosage.dart';
 import 'package:memory_pill/models/medicine/medicine_model.dart';
 import 'package:memory_pill/models/medicine/medicine_schedule.dart';
-import 'package:memory_pill/models/dosage/dosage.dart';
 import 'package:memory_pill/widgets/alarm_manager.dart';
 import 'package:memory_pill/widgets/custom_form_field.dart';
 import 'package:memory_pill/widgets/storage.dart';
@@ -25,6 +25,12 @@ class _MedicineFormScreenState extends State<MedicineFormScreen> {
   final _formKey = GlobalKey<FormState>();
 
   Medicine newMedicine;
+
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -223,7 +229,7 @@ class _MedicineFormScreenState extends State<MedicineFormScreen> {
                     Storage.addScheduledMedicine(newMedicine);
                     Storage.save();
                     print(newMedicine);
-                    alarmCallback(newMedicine);
+                    alarmCallback();
                     Navigator.pop(context);
                   });
                 }

@@ -1,9 +1,7 @@
-import 'package:android_alarm_manager/android_alarm_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_pill/screens/app_bar.dart';
 import 'package:memory_pill/screens/medicine_form.dart';
 import 'package:memory_pill/screens/medicine_schedule_list.dart';
-import 'package:memory_pill/widgets/alarm_manager.dart';
 import 'package:memory_pill/widgets/menu_button.dart';
 
 class HomeScreen extends StatefulWidget {
